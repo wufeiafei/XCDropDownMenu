@@ -10,4 +10,6 @@
 
 @interface XCArrow : UIView
 
+@property (strong, nonatomic)UIColor *arrowColor;
+
 @end

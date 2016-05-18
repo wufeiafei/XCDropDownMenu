@@ -112,8 +112,6 @@
         btn.tag = i + 1;
         btn.title = [self.dataSource menu:self titleForColumn:i];
         btn.titleColor = [UIColor blackColor];
-       // [btn setTitle:[self.dataSource menu:self titleForColumn:i] forState:UIControlStateNormal];
-       // [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
     
@@ -493,7 +491,6 @@
     NSString *string = [_dataSource menu:self titleForRowAtIndexPath:[XCIndexPath indexPathWithCol:_currentSelectedMenuIndex leftOrRight:leftOrRight leftRow:_leftSelectedRow row:row]];
     
     [btn setTitle:string];
-    //[btn setTitle:string forState:UIControlStateNormal];
    
     [self animateLeftTableView:_leftTableView
                 rightTableView:_rightTableView

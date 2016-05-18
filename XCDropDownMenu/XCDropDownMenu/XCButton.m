@@ -43,7 +43,7 @@
     [self addSubview:_titleLB];
     
     _arrow = [[XCArrow alloc] initWithFrame:CGRectMake(self.frame.size.width - 15, (self.frame.size.height - 10)/2, 10, 10)];
-    _arrow.backgroundColor = _titleColor;
+    _arrow.arrowColor = _titleColor;
     [self addSubview:_arrow];
     
     

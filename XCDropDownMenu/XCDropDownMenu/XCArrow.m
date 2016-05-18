@@ -10,6 +10,7 @@
 
 @interface XCArrow()
 
+
 @end
 
 
@@ -28,45 +29,42 @@
 -(void)_m_init
 {
     
-    
-    [self drawRect:self.frame];
+    CAShapeLayer *arrowLayer = [self createArrowWithColor:[UIColor yellowColor] andPosition:CGPointMake((self.frame.size.width - 8)/2, (self.frame.size.height - 5)/2)];
+    [self.layer addSublayer:arrowLayer];
     
 }
 
 
--(void)drawRect:(CGRect)rect
 
+- (CAShapeLayer *)createArrowWithColor:(UIColor *)color andPosition:(CGPoint)point {
+    
+    CAShapeLayer *layer = [CAShapeLayer new];
+    
+    UIBezierPath *path = [UIBezierPath new];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(8, 0)];
+    [path addLineToPoint:CGPointMake(4, 5)];
+    [path closePath];
+    
+    layer.path = path.CGPath;
+    layer.lineWidth = 1.0;
+    layer.fillColor = color.CGColor;
+    
+    CGPathRef bound = CGPathCreateCopyByStrokingPath(layer.path, nil, layer.lineWidth, kCGLineCapButt, kCGLineJoinMiter, layer.miterLimit);
+    layer.bounds = CGPathGetBoundingBox(bound);
+    
+    CGPathRelease(bound);
+    
+    layer.position = point;
+    
+    return layer;
+}
+
+-(void)setArrowColor:(UIColor *)arrowColor
 {
+
     
-    //设置背景颜色
-    [[UIColor clearColor] set];
-    
-    UIRectFill([self bounds]);
-    
-    //拿到当前视图准备好的画板
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    //利用path进行绘制三角形
-    CGContextBeginPath(context);//标记
-    
-    CGContextMoveToPoint(context,0, 0);//设置起点
-    
-    CGContextAddLineToPoint(context,10, 0);
-    
-    CGContextAddLineToPoint(context,10, 10);
-    
-    CGContextClosePath(context);//路径结束标志，不写默认封闭
-    
-    [[UIColor redColor] setFill]; //设置填充色
-    
-    [[UIColor whiteColor] setStroke]; //设置边框颜色
-    
-    CGContextDrawPath(context, kCGPathFillStroke);//绘制路径path
-    
+
 }
-
-
-
-
 
 @end
