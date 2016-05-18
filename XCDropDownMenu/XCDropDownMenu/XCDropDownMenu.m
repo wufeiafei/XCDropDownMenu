@@ -8,6 +8,7 @@
 
 #import "XCDropDownMenu.h"
 #import "XCTableViewCell.h"
+#import "XCButton.h"
 
 #define BackColor [UIColor colorWithRed:244.0/255 green:244.0/255 blue:244.0/255 alpha:1.0]
 
@@ -106,12 +107,13 @@
     
     for (int i = 0; i < _numberOfMenu; i++) {
         
-        UIButton *btn = [[UIButton alloc] init];
-        btn.frame = CGRectMake(i * bgLayerInterval, 0, bgLayerInterval, self.frame.size.height);
+        XCButton *btn = [[XCButton alloc] initWithFrame:CGRectMake(i * bgLayerInterval, 0, bgLayerInterval, self.frame.size.height)];
         btn.backgroundColor = [UIColor redColor];
         btn.tag = i + 1;
-        [btn setTitle:[self.dataSource menu:self titleForColumn:i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.title = [self.dataSource menu:self titleForColumn:i];
+        btn.titleColor = [UIColor blackColor];
+       // [btn setTitle:[self.dataSource menu:self titleForColumn:i] forState:UIControlStateNormal];
+       // [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
     
@@ -486,11 +488,12 @@
 
 - (void)confiMenuWithSelectRow:(NSInteger)row leftOrRight:(NSInteger)leftOrRight{
     
-    UIButton *btn = [self viewWithTag:_currentSelectedMenuIndex + 1];
+    XCButton *btn = [self viewWithTag:_currentSelectedMenuIndex + 1];
   
     NSString *string = [_dataSource menu:self titleForRowAtIndexPath:[XCIndexPath indexPathWithCol:_currentSelectedMenuIndex leftOrRight:leftOrRight leftRow:_leftSelectedRow row:row]];
     
-    [btn setTitle:string forState:UIControlStateNormal];
+    [btn setTitle:string];
+    //[btn setTitle:string forState:UIControlStateNormal];
    
     [self animateLeftTableView:_leftTableView
                 rightTableView:_rightTableView
