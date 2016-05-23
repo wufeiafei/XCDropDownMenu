@@ -9,6 +9,7 @@
 #import "XCDropDownMenu.h"
 #import "XCTableViewCell.h"
 #import "XCButton.h"
+#import "XCRightTableViewCell.h"
 
 #define BackColor [UIColor colorWithRed:244.0/255 green:244.0/255 blue:244.0/255 alpha:1.0]
 
@@ -422,23 +423,35 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *identifier = @"XCDropDownMenuCell";
+    UITableViewCell *cell = nil;
+    if (tableView == _leftTableView) {
+
+        static NSString *identifier = @"XCDropDownMenuCell";
     
-    XCTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[XCTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+        XCTableViewCell *leftCell =[tableView dequeueReusableCellWithIdentifier:identifier];
+        if (leftCell == nil) {
+            leftCell = [[XCTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                              reuseIdentifier:identifier];
-    }
-    
-    NSInteger leftOrRight = kXCIndexPathLeft;
-    
-    if (_rightTableView == tableView) {
+        }
         
-        leftOrRight = kXCIndexPathRight;
-    }
-    [cell setTitle:[_dataSource menu:self titleForRowAtIndexPath:[XCIndexPath indexPathWithCol:_currentSelectedMenuIndex leftOrRight:leftOrRight leftRow:_leftSelectedRow row:indexPath.row]]];
+        [leftCell setTitle:[_dataSource menu:self titleForRowAtIndexPath:[XCIndexPath indexPathWithCol:_currentSelectedMenuIndex leftOrRight:kXCIndexPathLeft leftRow:_leftSelectedRow row:indexPath.row]]];
     
-   
+        cell = leftCell;
+    }
+    
+    if (tableView == _rightTableView) {
+        static NSString *identifier = @"XCDropDownMenuRightCell";
+        
+        XCRightTableViewCell *rightCell =[tableView dequeueReusableCellWithIdentifier:identifier];
+        if (rightCell == nil) {
+            rightCell = [[XCRightTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                              reuseIdentifier:identifier];
+        }
+        
+        [rightCell setTitle:[_dataSource menu:self titleForRowAtIndexPath:[XCIndexPath indexPathWithCol:_currentSelectedMenuIndex leftOrRight:kXCIndexPathRight leftRow:_leftSelectedRow row:indexPath.row]]];
+        
+        cell = rightCell;
+    }
     return cell;
 }
 

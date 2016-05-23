@@ -19,6 +19,7 @@
 		0D2FD0E21CDF0FA400DEEC9C /* XCDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2FD0E11CDF0FA400DEEC9C /* XCDropDownMenu.m */; };
 		0D2FD0E51CDF102500DEEC9C /* XCIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2FD0E41CDF102500DEEC9C /* XCIndexPath.m */; };
 		0D2FD0E91CDF145200DEEC9C /* XCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2FD0E81CDF145200DEEC9C /* XCTableViewCell.m */; };
+		0DB4E13F1CF33E4B00DE9E09 /* XCRightTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB4E13E1CF33E4B00DE9E09 /* XCRightTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		0D2FD0E41CDF102500DEEC9C /* XCIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCIndexPath.m; sourceTree = "<group>"; };
 		0D2FD0E71CDF145200DEEC9C /* XCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTableViewCell.h; sourceTree = "<group>"; };
 		0D2FD0E81CDF145200DEEC9C /* XCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCTableViewCell.m; sourceTree = "<group>"; };
+		0DB4E13D1CF33E4B00DE9E09 /* XCRightTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCRightTableViewCell.h; sourceTree = "<group>"; };
+		0DB4E13E1CF33E4B00DE9E09 /* XCRightTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCRightTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +167,8 @@
 				0A01B3351CEC35B9003A9DCE /* XCButton.m */,
 				0D2FD0E71CDF145200DEEC9C /* XCTableViewCell.h */,
 				0D2FD0E81CDF145200DEEC9C /* XCTableViewCell.m */,
+				0DB4E13D1CF33E4B00DE9E09 /* XCRightTableViewCell.h */,
+				0DB4E13E1CF33E4B00DE9E09 /* XCRightTableViewCell.m */,
 				0D2FD0E01CDF0FA400DEEC9C /* XCDropDownMenu.h */,
 				0D2FD0E11CDF0FA400DEEC9C /* XCDropDownMenu.m */,
 			);
@@ -307,6 +312,7 @@
 				0A01B3361CEC35B9003A9DCE /* XCButton.m in Sources */,
 				0D2FD0E51CDF102500DEEC9C /* XCIndexPath.m in Sources */,
 				0D2FD0AE1CDF0EEC00DEEC9C /* main.m in Sources */,
+				0DB4E13F1CF33E4B00DE9E09 /* XCRightTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
