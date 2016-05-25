@@ -9,6 +9,10 @@
 #import "XCArrow.h"
 
 @interface XCArrow()
+{
+    CAShapeLayer *shlayer;
+
+}
 
 
 @end
@@ -29,40 +33,42 @@
 -(void)_m_init
 {
     
-    CAShapeLayer *arrowLayer = [self createArrowWithColor:[UIColor yellowColor] andPosition:CGPointMake((self.frame.size.width - 8)/2, (self.frame.size.height - 5)/2)];
-    [self.layer addSublayer:arrowLayer];
+    [self createArrowWithPosition:CGPointMake((self.frame.size.width - 8)/2, (self.frame.size.height - 5)/2)];
+    [self.layer addSublayer:shlayer];
     
 }
 
 
 
-- (CAShapeLayer *)createArrowWithColor:(UIColor *)color andPosition:(CGPoint)point {
+- (void)createArrowWithPosition:(CGPoint)point {
     
-    CAShapeLayer *layer = [CAShapeLayer new];
+    shlayer = [[CAShapeLayer alloc] init];
     
     UIBezierPath *path = [UIBezierPath new];
     [path moveToPoint:CGPointMake(0, 0)];
-    [path addLineToPoint:CGPointMake(8, 0)];
-    [path addLineToPoint:CGPointMake(4, 5)];
+    [path addLineToPoint:CGPointMake(self.frame.size.width, 0)];
+    [path addLineToPoint:CGPointMake(self.frame.size.width/2, self.frame.size.height)];
     [path closePath];
     
-    layer.path = path.CGPath;
-    layer.lineWidth = 1.0;
-    layer.fillColor = color.CGColor;
+    shlayer.path = path.CGPath;
+    shlayer.lineWidth = 1.0;
+
     
-    CGPathRef bound = CGPathCreateCopyByStrokingPath(layer.path, nil, layer.lineWidth, kCGLineCapButt, kCGLineJoinMiter, layer.miterLimit);
-    layer.bounds = CGPathGetBoundingBox(bound);
+    CGPathRef bound = CGPathCreateCopyByStrokingPath(shlayer.path, nil, shlayer.lineWidth, kCGLineCapButt, kCGLineJoinMiter, shlayer.miterLimit);
+    shlayer.bounds = CGPathGetBoundingBox(bound);
     
     CGPathRelease(bound);
     
-    layer.position = point;
+    shlayer.position = point;
     
-    return layer;
+   
 }
 
 -(void)setArrowColor:(UIColor *)arrowColor
 {
 
+    shlayer.fillColor = arrowColor.CGColor;
+    
     
 
 }

@@ -36,14 +36,12 @@
    
     _titleLB = [[UILabel alloc] init];
     _titleLB.frame = CGRectMake(10, 0, self.frame.size.width - 30, self.frame.size.height);
-    _titleLB.textColor = _titleColor;
     _titleLB.textAlignment = NSTextAlignmentCenter;
     _titleLB.font = [UIFont systemFontOfSize:15];
     _titleLB.text = _title;
     [self addSubview:_titleLB];
     
     _arrow = [[XCArrow alloc] initWithFrame:CGRectMake(self.frame.size.width - 15, (self.frame.size.height - 10)/2, 10, 10)];
-    _arrow.arrowColor = _titleColor;
     [self addSubview:_arrow];
     
     
@@ -53,9 +51,38 @@
 {
 
     _titleLB.text = title;
+   
 
 }
 
+
+-(void)setTitleColor:(UIColor *)titleColor
+{
+
+    _titleLB.textColor = titleColor;
+    _arrow.arrowColor = titleColor;
+
+}
+
+
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    
+    CGAffineTransform transform = selected ? CGAffineTransformMakeRotation(0.00001 - M_PI) : CGAffineTransformIdentity;
+    [UIView animateWithDuration:.15f animations:^{
+        _arrow.transform = transform;
+    }];
+}
+
+
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setSelected:highlighted];
+    
+    CGAffineTransform transform = highlighted ? CGAffineTransformMakeRotation(0.000001 - M_PI) : CGAffineTransformIdentity;
+    [UIView animateWithDuration:.15f animations:^{
+        _arrow.transform = transform;
+    }];
+}
 
 
 @end

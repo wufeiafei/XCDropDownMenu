@@ -109,7 +109,6 @@
     for (int i = 0; i < _numberOfMenu; i++) {
         
         XCButton *btn = [[XCButton alloc] initWithFrame:CGRectMake(i * bgLayerInterval, 0, bgLayerInterval, self.frame.size.height)];
-        btn.backgroundColor = [UIColor redColor];
         btn.tag = i + 1;
         btn.title = [self.dataSource menu:self titleForColumn:i];
         btn.titleColor = [UIColor blackColor];
@@ -122,12 +121,15 @@
         
         UILabel *line  = [[UILabel alloc] init];
         line.frame = CGRectMake(bgLayerInterval * i, 3,1 , self.frame.size.height - 6);
-        line.backgroundColor = [UIColor greenColor];
+        line.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
         [self addSubview:line];
         
     }
  
-    
+    UILabel *bottomLine = [[UILabel alloc] init];
+    bottomLine .frame = CGRectMake(0, self.frame.size.height -1 ,self.frame.size.width , 1);
+    bottomLine.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
+    [self addSubview:bottomLine];
     
     _titlesArray = [tempTitlesArray copy];
     _indicatorsArray = [tempIndicatorsArray copy];
@@ -180,28 +182,6 @@
     return layer;
 }
 
-- (CAShapeLayer *)createIndicatorWithColor:(UIColor *)color andPosition:(CGPoint)point {
-    CAShapeLayer *layer = [CAShapeLayer new];
-    
-    UIBezierPath *path = [UIBezierPath new];
-    [path moveToPoint:CGPointMake(0, 0)];
-    [path addLineToPoint:CGPointMake(8, 0)];
-    [path addLineToPoint:CGPointMake(4, 5)];
-    [path closePath];
-    
-    layer.path = path.CGPath;
-    layer.lineWidth = 1.0;
-    layer.fillColor = color.CGColor;
-    
-    CGPathRef bound = CGPathCreateCopyByStrokingPath(layer.path, nil, layer.lineWidth, kCGLineCapButt, kCGLineJoinMiter, layer.miterLimit);
-    layer.bounds = CGPathGetBoundingBox(bound);
-    
-    CGPathRelease(bound);
-    
-    layer.position = point;
-    
-    return layer;
-}
 
 
 
@@ -421,6 +401,12 @@
     return 0.1;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return 44.0;
+
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;

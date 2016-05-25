@@ -51,7 +51,7 @@
     
     UILabel *line = [[UILabel alloc] init];
     line.frame = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1);
-    line.backgroundColor = [UIColor grayColor];
+    line.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
     [_backView addSubview:line];
 
 }
@@ -60,20 +60,7 @@
     
     _titleLB.text = title;
     // 只取宽度
-//    NSDictionary *fontDic = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
-//    
-//    CGSize textSize = [title boundingRectWithSize:CGSizeMake(self.frame.size.width, MAXFLOAT)
-//                                         options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading
-//                                      attributes:fontDic
-//                                         context:nil].size;
-//    
-//    CGFloat marginX = 20;
-//    
-//    if (![@"left" isEqualToString:align]) {
-//        marginX = (self.frame.size.width - textSize.width)/2;
-//    }
-    
-   
+
     
 }
 
