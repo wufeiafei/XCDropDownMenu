@@ -20,6 +20,7 @@
 		0D2FD0E51CDF102500DEEC9C /* XCIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2FD0E41CDF102500DEEC9C /* XCIndexPath.m */; };
 		0D2FD0E91CDF145200DEEC9C /* XCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2FD0E81CDF145200DEEC9C /* XCTableViewCell.m */; };
 		0DB4E13F1CF33E4B00DE9E09 /* XCRightTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB4E13E1CF33E4B00DE9E09 /* XCRightTableViewCell.m */; };
+		0DFE400E1CF73903002F156D /* XCHamulus.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE400D1CF73903002F156D /* XCHamulus.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,8 @@
 		0D2FD0E81CDF145200DEEC9C /* XCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCTableViewCell.m; sourceTree = "<group>"; };
 		0DB4E13D1CF33E4B00DE9E09 /* XCRightTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCRightTableViewCell.h; sourceTree = "<group>"; };
 		0DB4E13E1CF33E4B00DE9E09 /* XCRightTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCRightTableViewCell.m; sourceTree = "<group>"; };
+		0DFE400C1CF73903002F156D /* XCHamulus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCHamulus.h; sourceTree = "<group>"; };
+		0DFE400D1CF73903002F156D /* XCHamulus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCHamulus.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,8 @@
 			children = (
 				0D2FD0E31CDF102500DEEC9C /* XCIndexPath.h */,
 				0D2FD0E41CDF102500DEEC9C /* XCIndexPath.m */,
+				0DFE400C1CF73903002F156D /* XCHamulus.h */,
+				0DFE400D1CF73903002F156D /* XCHamulus.m */,
 				0A01B3391CEC42AF003A9DCE /* XCArrow.h */,
 				0A01B33A1CEC42AF003A9DCE /* XCArrow.m */,
 				0A01B3341CEC35B9003A9DCE /* XCButton.h */,
@@ -312,6 +317,7 @@
 				0A01B3361CEC35B9003A9DCE /* XCButton.m in Sources */,
 				0D2FD0E51CDF102500DEEC9C /* XCIndexPath.m in Sources */,
 				0D2FD0AE1CDF0EEC00DEEC9C /* main.m in Sources */,
+				0DFE400E1CF73903002F156D /* XCHamulus.m in Sources */,
 				0DB4E13F1CF33E4B00DE9E09 /* XCRightTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

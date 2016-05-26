@@ -8,14 +8,13 @@
 
 #import "XCRightTableViewCell.h"
 #import "XCArrow.h"
+#import "XCHamulus.h"
+
 @interface XCRightTableViewCell()
-
-
-@property(nonatomic,strong) UIView *backView;
 
 @property(nonatomic,strong) UILabel *titleLB;
 
-@property(nonatomic,strong) XCArrow *arrow;
+@property(nonatomic,strong) XCHamulus *hamulus;
 
 
 @end
@@ -39,10 +38,7 @@
 
 -(void)initSubView
 {
-//    _backView = [[UIView alloc] init];
-//    _backView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-//    _backView.backgroundColor = [UIColor whiteColor];
-//    [self addSubview:_backView];
+
     
     _titleLB = [[UILabel alloc] init];
     _titleLB.frame = CGRectMake(0, 0, self.frame.size.width - 60, self.frame.size.height);
@@ -50,9 +46,9 @@
     _titleLB.font = [UIFont systemFontOfSize:14.0f];
     [self addSubview:_titleLB];
     
-    _arrow = [[XCArrow alloc] initWithFrame:CGRectMake(0,0, 10,10)];
-    _arrow.arrowColor = [UIColor blackColor];
-    [self addSubview:_arrow];
+    _hamulus = [[XCHamulus alloc] initWithFrame:CGRectMake(0,0, 10,10)];
+    _hamulus.hamulusColor = [UIColor blackColor];
+    [self addSubview:_hamulus];
     
     
     UILabel *line = [[UILabel alloc] init];
@@ -69,7 +65,7 @@
     _titleLB.frame = CGRectMake(20, 0, titleWidth, self.frame.size.height);
     _titleLB.text = title;
     
-    _arrow.frame = CGRectMake(20 + titleWidth, 10, 10, 10);
+    _hamulus.frame = CGRectMake(20 + titleWidth + 5, (self.frame.size.height - 10)/2, 10, 10);
     
     
 
@@ -97,8 +93,9 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    
 
-    // Configure the view for the selected state
+    
 }
 
 @end
