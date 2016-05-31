@@ -53,15 +53,6 @@
     shlayer.path = path.CGPath;
     shlayer.lineWidth = 1.0;
 
-    
-    CGPathRef bound = CGPathCreateCopyByStrokingPath(shlayer.path, nil, shlayer.lineWidth, kCGLineCapButt, kCGLineJoinMiter, shlayer.miterLimit);
-    shlayer.bounds = CGPathGetBoundingBox(bound);
-    
-    CGPathRelease(bound);
-    
-    shlayer.position = point;
-    
-   
 }
 
 -(void)setArrowColor:(UIColor *)arrowColor

@@ -53,16 +53,13 @@
     hlayer.lineWidth = 1.0;
     hlayer.fillColor = nil;
     
-    
-    
-    
+
 }
 
 -(void)setHamulusColor:(UIColor *)hamulusColor
 {
     
     hlayer.strokeColor = hamulusColor.CGColor;
-    
     
     
 }
