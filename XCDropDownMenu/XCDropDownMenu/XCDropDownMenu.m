@@ -32,6 +32,8 @@
 
 @property (nonatomic, strong) UITableView *rightTableView;
 
+@property (nonatomic, strong) UIButton *backgroundBtn;
+
 //data source
 @property (nonatomic, copy) NSArray *array;
 //layers array
@@ -162,6 +164,11 @@
         _rightTableView.delegate = self;
         
         
+        _backgroundBtn = [[UIButton alloc] initWithFrame:CGRectMake(origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width, 0)];
+        _backgroundBtn.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.7];
+        [_backgroundBtn addTarget:self action:@selector(backgroundBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
         self.autoresizesSubviews = NO;
         _leftTableView.autoresizesSubviews = NO;
         _rightTableView.autoresizesSubviews = NO;
@@ -169,17 +176,6 @@
         
     }
     return self;
-}
-
-#pragma mark - init support
-- (CALayer *)createBgLayerWithColor:(UIColor *)color andPosition:(CGPoint)position {
-    CALayer *layer = [CALayer layer];
-    
-    layer.position = position;
-    layer.bounds = CGRectMake(0, 0, self.frame.size.width/self.numberOfMenu, self.frame.size.height - 1);
-    layer.backgroundColor = color.CGColor;
-    
-    return layer;
 }
 
 
@@ -196,10 +192,21 @@
 
 #pragma mark -- action
 
+-(void)backgroundBtnPressed:(id)sender
+{
+
+    [self animateLeftTableView:_leftTableView
+                rightTableView:_rightTableView
+                          show:NO
+                      complete:^{
+                      }];
+
+}
+
 -(void)btnPressed:(UIButton*)btn
 {
-    
-    _hadSelected = NO;
+    btn.selected = !btn.selected;
+    _hadSelected = btn.selected;
     _currentSelectedMenuIndex = btn.tag - 1;
     
     BOOL haveRightTableView = [_dataSource haveRightTableViewInColumn:_currentSelectedMenuIndex];
@@ -245,58 +252,20 @@
 
 
 
-#pragma mark - animation method
-- (void)animateIndicator:(CAShapeLayer *)indicator Forward:(BOOL)forward complete:(void(^)())complete {
-    [CATransaction begin];
-    [CATransaction setAnimationDuration:0.25];
-    [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.4 :0.0 :0.2 :1.0]];
-    
-    CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation"];
-    anim.values = forward ? @[ @0, @(M_PI) ] : @[@(M_PI), @0 ];
-    
-    if (!anim.removedOnCompletion) {
-        [indicator addAnimation:anim forKey:anim.keyPath];
-    } else {
-        [indicator addAnimation:anim forKey:anim.keyPath];
-        [indicator setValue:anim.values.lastObject forKeyPath:anim.keyPath];
-    }
-    
-    [CATransaction commit];
-    
-    complete();
-}
-
-- (void)animateBackGroundView:(UIView *)view show:(BOOL)show complete:(void(^)())complete {
-    if (show) {
-        [self.superview addSubview:view];
-        [view.superview addSubview:self];
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.3];
-        }];
-    } else {
-        [UIView animateWithDuration:0.2 animations:^{
-            view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
-        } completion:^(BOOL finished) {
-            [view removeFromSuperview];
-        }];
-    }
-    complete();
-}
-
 /**
  *动画显示下拉菜单
  */
 - (void)animateLeftTableView:(UITableView *)leftTableView rightTableView:(UITableView *)rightTableView show:(BOOL)show complete:(void(^)())complete {
     
     CGFloat ratio = [_dataSource widthRatioOfLeftColumn:_currentSelectedMenuIndex];
-    
-     CGFloat heigtw = [UIScreen mainScreen].bounds.size.height;
+    CGFloat heigtw = [UIScreen mainScreen].bounds.size.height;
     
     if (show) {
         
-        CGFloat leftTableViewHeight = 0;
         
+        [self.superview addSubview:_backgroundBtn];
+        
+        CGFloat leftTableViewHeight = 0;
         CGFloat rightTableViewHeight = 0;
         
         if (leftTableView) {
@@ -304,7 +273,7 @@
             leftTableView.frame = CGRectMake(_origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width * ratio, 0);
             [self.superview addSubview:leftTableView];
             
-            leftTableViewHeight = ([leftTableView numberOfRowsInSection:0] * leftTableView.rowHeight > heigtw - self.frame.origin.y - self.frame.size.height) ? (heigtw - self.frame.origin.y - self.frame.size.height) : ([leftTableView numberOfRowsInSection:0] * leftTableView.rowHeight);
+            leftTableViewHeight = ([leftTableView numberOfRowsInSection:0] * 44 > heigtw - self.frame.origin.y - self.frame.size.height) ? (heigtw - self.frame.origin.y - self.frame.size.height) : ([leftTableView numberOfRowsInSection:0] * 44);
             
         }
         
@@ -315,12 +284,16 @@
             
             [self.superview addSubview:rightTableView];
             
-            rightTableViewHeight = ([rightTableView numberOfRowsInSection:0] * rightTableView.rowHeight > heigtw - self.frame.origin.y - self.frame.size.height) ? (heigtw - self.frame.origin.y - self.frame.size.height) : ([rightTableView numberOfRowsInSection:0] * rightTableView.rowHeight);
+            rightTableViewHeight = ([rightTableView numberOfRowsInSection:0] * 44 > heigtw - self.frame.origin.y - self.frame.size.height) ? (heigtw - self.frame.origin.y - self.frame.size.height) : ([rightTableView numberOfRowsInSection:0] * 44);
+            
         }
         
         CGFloat tableViewHeight = MAX(leftTableViewHeight, rightTableViewHeight);
         
         [UIView animateWithDuration:0.2 animations:^{
+            
+            _backgroundBtn.frame = CGRectMake(_origin.x, self.frame.origin.y + self.frame.size.height,[UIScreen mainScreen].bounds.size.width , heigtw);
+            
             if (leftTableView) {
                 leftTableView.frame = CGRectMake(_origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width * ratio, tableViewHeight);
             }
@@ -329,7 +302,10 @@
             }
         }];
     } else {
+        
         [UIView animateWithDuration:0.2 animations:^{
+            
+            _backgroundBtn.frame = CGRectMake(_origin.x, self.frame.origin.y + self.frame.size.height,self.frame.size.width , 0);
             
             if (leftTableView) {
                 leftTableView.frame = CGRectMake(_origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width * ratio, 0);
@@ -339,6 +315,8 @@
             }
             
         } completion:^(BOOL finished) {
+            
+            [_backgroundBtn removeFromSuperview];
             
             if (leftTableView) {
                 [leftTableView removeFromSuperview];
@@ -352,27 +330,6 @@
 }
 
 
-
-- (void)animateTitle:(CATextLayer *)title show:(BOOL)show complete:(void(^)())complete {
-    CGSize size = [self calculateTitleSizeWithString:title.string];
-    CGFloat sizeWidth = (size.width < (self.frame.size.width / _numberOfMenu) - 25) ? size.width : self.frame.size.width / _numberOfMenu - 25;
-    title.bounds = CGRectMake(0, 0, sizeWidth, size.height);
-    complete();
-}
-
-- (void)animateIdicator:(CAShapeLayer *)indicator background:(UIView *)background leftTableView:(UITableView *)leftTableView rightTableView:(UITableView *)rightTableView title:(CATextLayer *)title forward:(BOOL)forward complecte:(void(^)())complete{
-    
-    [self animateIndicator:indicator Forward:forward complete:^{
-        [self animateTitle:title show:forward complete:^{
-            [self animateBackGroundView:background show:forward complete:^{
-                [self animateLeftTableView:leftTableView rightTableView:rightTableView show:forward complete:^{
-                }];
-            }];
-        }];
-    }];
-    
-    complete();
-}
 
 
 
