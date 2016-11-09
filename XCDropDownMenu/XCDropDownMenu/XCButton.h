@@ -14,5 +14,8 @@
 
 @property (strong, nonatomic)UIColor *titleColor;
 
+@property (strong, nonatomic)UIColor *selectTitleColor;
+
+
 
 @end

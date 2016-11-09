@@ -35,13 +35,6 @@
 @property (nonatomic, strong) UIButton *backgroundBtn;
 
 //data source
-@property (nonatomic, copy) NSArray *array;
-//layers array
-@property (nonatomic, copy) NSArray *titlesArray;
-
-@property (nonatomic, copy) NSArray *indicatorsArray;
-
-@property (nonatomic, copy) NSArray *bgLayersArray;
 
 @property (nonatomic, assign) NSInteger leftSelectedRow;
 
@@ -53,11 +46,19 @@
 
 
 #pragma mark - getter
-- (UIColor *)indicatorColor {
-    if (!_indicatorColor) {
-        _indicatorColor = [UIColor blackColor];
+/*
+- (UIColor *)menuColor {
+    if (!_menuColor) {
+        _menuColor = [UIColor blackColor];
     }
-    return _indicatorColor;
+    return _menuColor;
+}
+
+- (UIColor *)selectMenuColor {
+    if (!_selectMenuColor) {
+        _selectMenuColor = [UIColor blackColor];
+    }
+    return _selectMenuColor;
 }
 
 - (UIColor *)textColor {
@@ -67,6 +68,13 @@
     return _textColor;
 }
 
+- (UIColor *)selectTextColor {
+    if (!_selectTextColor) {
+        _selectTextColor = [UIColor blackColor];
+    }
+    return _selectTextColor;
+}
+
 - (UIColor *)separatorColor {
     if (!_separatorColor) {
         _separatorColor = [UIColor blackColor];
@@ -74,13 +82,7 @@
     return _separatorColor;
 }
 
-- (void)setSelectIndex:(XCIndexPath *)indexPath
-{
-    
-    
-    
-}
-
+*/
 
 
 - (NSString *)titleForRowAtIndexPath:(XCIndexPath *)indexPath {
@@ -101,19 +103,19 @@
     }
     
     
-    CGFloat bgLayerInterval = self.frame.size.width/_numberOfMenu;
+    CGFloat menuBtnWidth = self.frame.size.width/_numberOfMenu;
     
-    NSMutableArray *tempTitlesArray = [[NSMutableArray alloc] initWithCapacity:_numberOfMenu];
-    NSMutableArray *tempIndicatorsArray = [[NSMutableArray alloc] initWithCapacity:_numberOfMenu];
-    NSMutableArray *tempBgLayersArray = [[NSMutableArray alloc] initWithCapacity:_numberOfMenu];
+
     
     
     for (int i = 0; i < _numberOfMenu; i++) {
         
-        XCButton *btn = [[XCButton alloc] initWithFrame:CGRectMake(i * bgLayerInterval, 0, bgLayerInterval, self.frame.size.height)];
+        XCButton *btn = [[XCButton alloc] initWithFrame:CGRectMake(i * menuBtnWidth, 0, menuBtnWidth, self.frame.size.height)];
         btn.tag = i + 1;
         btn.title = [self.dataSource menu:self titleForColumn:i];
-        btn.titleColor = [UIColor blackColor];
+        btn.titleColor = _menuColor?:[UIColor blackColor];
+        btn.selectTitleColor = _selectMenuColor?:[UIColor blackColor];
+        
         [btn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
     
@@ -122,7 +124,7 @@
     for (int i = 1; i < _numberOfMenu; i++) {
         
         UILabel *line  = [[UILabel alloc] init];
-        line.frame = CGRectMake(bgLayerInterval * i, 3,1 , self.frame.size.height - 6);
+        line.frame = CGRectMake(menuBtnWidth * i, 3,1 , self.frame.size.height - 6);
         line.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
         [self addSubview:line];
         
@@ -133,10 +135,7 @@
     bottomLine.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
     [self addSubview:bottomLine];
     
-    _titlesArray = [tempTitlesArray copy];
-    _indicatorsArray = [tempIndicatorsArray copy];
-    _bgLayersArray = [tempBgLayersArray copy];
-    
+   
 }
 
 #pragma mark - init method
@@ -203,9 +202,10 @@
 
 }
 
--(void)btnPressed:(UIButton*)btn
+-(void)btnPressed:(XCButton*)btn
 {
-    btn.selected = !btn.selected;
+    
+    [btn setSelected:!btn.selected];
     _hadSelected = btn.selected;
     _currentSelectedMenuIndex = btn.tag - 1;
     
@@ -260,6 +260,8 @@
     CGFloat ratio = [_dataSource widthRatioOfLeftColumn:_currentSelectedMenuIndex];
     CGFloat heigtw = [UIScreen mainScreen].bounds.size.height;
     
+  
+    
     if (show) {
         
         
@@ -302,6 +304,21 @@
             }
         }];
     } else {
+        for (int i =0 ; i < _numberOfMenu; i++) {
+            
+            XCButton *btn =  [self viewWithTag:i+1];
+            [btn setSelected:NO];
+//            if (btn.tag == _hadSelected) {
+//                
+//                [btn setSelected:YES];
+//            }
+//            else
+//            {
+//                [btn setSelected:NO];
+//                
+//            }
+            
+        }
         
         [UIView animateWithDuration:0.2 animations:^{
             

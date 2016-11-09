@@ -59,7 +59,6 @@
 
 }
 
-
 -(void)setTitleColor:(UIColor *)titleColor
 {
 
@@ -68,13 +67,11 @@
 
 }
 
-
-
 - (CGSize)calculateTitleSizeWithString:(NSString *)string
 {
     
     
-    NSDictionary *dic = @{NSFontAttributeName: [UIFont systemFontOfSize:15]};
+    NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
     CGSize size = [string boundingRectWithSize:CGSizeMake(self.frame.size.width, 0)
                                        options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                     attributes:dic
@@ -86,21 +83,15 @@
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
     
+    _titleLB.textColor = selected?_selectTitleColor:_titleColor;
+    _arrow.arrowColor = selected?_selectTitleColor:_titleColor;
+    
     CGAffineTransform transform = selected ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;
     [UIView animateWithDuration:.15f animations:^{
         _arrow.transform = transform;
     }];
 }
 
-
-- (void)setHighlighted:(BOOL)highlighted {
-    [super setSelected:highlighted];
-    
-    CGAffineTransform transform = highlighted ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;
-    [UIView animateWithDuration:.15f animations:^{
-        _arrow.transform = transform;
-    }];
-}
 
 
 @end

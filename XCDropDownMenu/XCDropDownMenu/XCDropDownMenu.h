@@ -63,12 +63,25 @@
 /*
  选择器的颜色
  */
-@property (nonatomic, strong) UIColor *indicatorColor;
+@property (nonatomic, strong) UIColor *menuColor;
+
+/*
+ 选中menu字体颜色
+ */
+@property (nonatomic, strong) UIColor *selectMenuColor;
 
 /*
  字体颜色
  */
 @property (nonatomic, strong) UIColor *textColor;
+
+/*
+ 选中的字体颜色
+ */
+@property (nonatomic, strong) UIColor *selectTextColor;
+
+
+
 
 /*
 分割线的颜色
@@ -84,7 +97,6 @@
  *  @return menu
  */
 
-- (void)setSelectIndex:(XCIndexPath *)indexPath;
 
 /*
  初始化方法
